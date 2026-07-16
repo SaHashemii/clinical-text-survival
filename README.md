@@ -16,7 +16,7 @@ clinical CSV + labels CSV + sentence template
 ## Repository Setup
 
 ```bash
-git clone <this-repo-url>
+git clone https://github.com/SaHashemii/clinical-text-survival
 cd clinical_unimodal_survival
 conda create -n clinical-text-survival python=3.10
 conda activate clinical-text-survival
