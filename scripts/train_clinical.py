@@ -157,7 +157,11 @@ def main() -> None:
     clinical_source = exp_data_cfg.get("clinical_source", "embedding")
 
     output_dir = ensure_dir(args.output_dir or resolve_path(REPO_ROOT, exp_info.get("output_dir", "outputs/clinical_unimodal")))
-    device = torch.device(train_cfg.get("device", "cpu"))
+    device_name = str(train_cfg.get("device", "cpu"))
+    if device_name == "cuda" and not torch.cuda.is_available():
+        print("CUDA was requested but is not available; falling back to CPU.", file=sys.stderr)
+        device_name = "cpu"
+    device = torch.device(device_name)
     seed = int(cv_cfg.get("seed", 42))
     set_seed(seed)
     data_root = Path(data_cfg["root"]).expanduser()
@@ -218,4 +222,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -21,6 +21,15 @@ from clinical_survival.training.metrics import concordance_index
 TensorTensors = tuple[torch.Tensor, torch.Tensor, torch.Tensor]
 
 
+def _progress(iterable, **kwargs):
+    """Return a tqdm iterator when available, otherwise the original iterable."""
+    try:
+        from tqdm.auto import tqdm
+    except ImportError:
+        return iterable
+    return tqdm(iterable, **kwargs)
+
+
 def _make_batches(
     n_samples: int,
     events: torch.Tensor,
@@ -65,7 +74,8 @@ def train_clinical_cox(
     wait = 0
     history: list[dict[str, Any]] = []
 
-    for epoch in range(1, epochs + 1):
+    epoch_iter = _progress(range(1, epochs + 1), desc="Training epochs", unit="epoch")
+    for epoch in epoch_iter:
         model.train()
         losses = []
         batches = _make_batches(len(x_train), event_train, training_style, batch_size, min_events_per_batch, device)
@@ -112,6 +122,13 @@ def train_clinical_cox(
                 "monitor_loss": monitor_loss,
             }
         )
+        if hasattr(epoch_iter, "set_postfix"):
+            epoch_iter.set_postfix(
+                train_loss=f"{mean_loss:.4f}",
+                val_loss=f"{val_loss:.4f}" if np.isfinite(val_loss) else "nan",
+                val_ci=f"{val_ci:.4f}" if np.isfinite(val_ci) else "nan",
+                wait=wait,
+            )
         if monitor_loss < best_loss:
             best_loss = monitor_loss
             best_state = deepcopy(model.state_dict())
@@ -139,4 +156,3 @@ def evaluate_clinical_cox(
     event_np = event.detach().cpu().numpy().astype(int)
     c_index = concordance_index(risk, time_np, event_np)
     return c_index, pd.DataFrame({"sample_id": sample_ids, "log_risk": risk, "Event": event_np, "Time": time_np})
-

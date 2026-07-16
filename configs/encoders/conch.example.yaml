@@ -1,0 +1,10 @@
+conch:
+  # Clone CONCH next to this repository:
+  #   workspace/
+  #     clinical_unimodal_survival/
+  #     CONCH/
+  repo_path: ../CONCH
+  model_name: conch_ViT-B-16
+  checkpoint_path: ../CONCH/checkpoints/conch/pytorch_model.bin
+  device: cuda
+  batch_size: 64

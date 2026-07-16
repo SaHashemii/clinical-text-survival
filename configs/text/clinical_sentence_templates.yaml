@@ -1,0 +1,102 @@
+settings:
+  id_column: sample_id
+  strict: true
+  include_missing: true
+  missing_values: ["", NA, N/A, nan, NaN, none, None, unknown, Unknown, -1, "-1", -1.0, "-1.0"]
+
+templates:
+  age:
+    column: age
+    type: numeric
+    template: "The patient is {value} years old."
+    missing: "The patient's age is unknown."
+    decimals: 0
+
+  sex:
+    column: sex
+    type: categorical
+    template: "The patient is {value}."
+    missing: "The patient's sex is unknown."
+    value_map:
+      F: female
+      M: male
+      Female: female
+      Male: male
+      female: female
+      male: male
+
+  smoking:
+    column: smoking
+    type: binary
+    template: "The patient has a history of smoking."
+    negative_template: "The patient has no history of smoking."
+    missing: "The patient's smoking history is unknown."
+    positive_values: ["yes", "Yes", "YES"]
+    negative_values: ["no", "No", "NO"]
+
+  tumor:
+    column: tumor
+    type: categorical
+    template: "The patient's tumor classification is {value}."
+    missing: "The patient's tumor classification is unknown."
+
+  stage:
+    column: stage
+    type: categorical
+    template: "The patient's tumor stage is {value}."
+    missing: "The patient's tumor stage is unknown."
+
+  substage:
+    column: substage
+    type: categorical
+    template: "The patient's tumor substage is {value}."
+    missing: "The patient's tumor substage is unknown."
+
+  grade:
+    column: grade
+    type: categorical
+    template: "The patient's tumor grade is {value}."
+    missing: "The patient's tumor grade is unknown."
+
+  reTUR:
+    column: reTUR
+    type: binary
+    template: "The patient underwent repeat transurethral resection before BCG induction."
+    negative_template: "The patient did not undergo repeat transurethral resection before BCG induction."
+    missing: "The patient's repeat transurethral resection status before BCG induction is unknown."
+    positive_values: [1, "1", "yes", "Yes", "YES", true, "true", "True", "TRUE"]
+    negative_values: [0, "0", "no", "No", "NO", false, "false", "False", "FALSE"]
+
+  LVI:
+    column: LVI
+    type: binary
+    template: "Lymphovascular invasion was observed on the H&E slide."
+    negative_template: "Lymphovascular invasion was not observed on the H&E slide."
+    missing: "Whether lymphovascular invasion was observed on the H&E slide is unknown."
+    positive_values: [1, "1", "yes", "Yes", "YES", true, "true", "True", "TRUE", present, observed]
+    negative_values: [0, "0", "no", "No", "NO", false, "false", "False", "FALSE", absent, "not observed"]
+
+  variant:
+    column: variant
+    type: categorical
+    template: "The patient's histologic variant status is {value}."
+    missing: "The patient's histologic variant status is unknown."
+
+  EORTC:
+    column: EORTC
+    type: categorical
+    template: "The patient's EORTC risk category is {value}."
+    missing: "The patient's EORTC risk category is unknown."
+
+  no_instillations:
+    column: no_instillations
+    type: numeric
+    template: "The patient received {value} intravesical BCG instillations."
+    missing: "The number of intravesical BCG instillations received by the patient is unknown."
+    decimals: 0
+
+  BRS:
+    column: BRS
+    type: categorical
+    template: "The patient's biomarker-derived BCG response subtype is {value}."
+    missing: "The patient's biomarker-derived BCG response subtype is unknown."

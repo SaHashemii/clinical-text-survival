@@ -4,4 +4,4 @@ torch
 scikit-learn
 pyyaml
 matplotlib
-
+tqdm
