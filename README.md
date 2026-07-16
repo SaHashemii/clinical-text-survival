@@ -2,6 +2,10 @@
 
 Generate clinical text embeddings from structured clinical variables using **CONCH** and train a **Cox proportional hazards model** for recurrence risk prediction.
 
+<p align="center">
+  <img src="overview.png" alt="Clinical Text Survival Pipeline Overview" width="1000">
+</p>
+
 ## Pipeline
 
 ```text
