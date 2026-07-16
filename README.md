@@ -15,82 +15,37 @@ clinical CSV + labels CSV + sentence template
 
 ## Repository Setup
 
-Clone this repository:
-
 ```bash
 git clone <this-repo-url>
 cd clinical_unimodal_survival
-```
-
-Create a Python environment and install the package.
-
-Option A: virtual environment:
-
-```bash
-python3.11 -m venv .venv
-source .venv/bin/activate
-python --version
-pip install -e .
-```
-
-Use any Python version `>=3.10`. For example, `python3.10`, `python3.11`, or
-`python3.12` are all valid if they are installed on your machine.
-
-Option B: Conda environment:
-
-```bash
 conda create -n clinical-text-survival python=3.10
 conda activate clinical-text-survival
 pip install -e .
 ```
 
-If you already have a Conda environment that can import CONCH, you can use that
-environment instead:
-
-```bash
-conda activate <your-conch-env>
-python --version
-pip install -e .
-```
-
-Check that the required packages import:
-
-```bash
-python -c "import clinical_survival; print('repo ok')"
-python -c "import torch; print(torch.__version__)"
-python -c "from conch.open_clip_custom import create_model_from_pretrained; print('conch ok')"
-```
-
 ## CONCH Setup
-
-Clone CONCH next to this repository:
 
 ```bash
 git clone https://github.com/mahmoodlab/CONCH.git ../CONCH
 pip install -e ../CONCH
+mkdir -p ../CONCH/checkpoints/conch
 ```
 
-Expected folder layout:
-
-```text
-workspace/
-  clinical_unimodal_survival/
-  CONCH/
-```
-
-Download the CONCH weights after receiving access, then place the checkpoint at:
+Download the CONCH weights and place them at:
 
 ```text
 ../CONCH/checkpoints/conch/pytorch_model.bin
 ```
 
-The example encoder config is:
+Check the setup:
 
-```text
-configs/encoders/conch.example.yaml
+```bash
+python -c "import clinical_survival; print('repo ok')"
+python -c "from conch.open_clip_custom import create_model_from_pretrained; print('conch ok')"
 ```
 
-Edit this file, or copy it to a local config, if your CONCH checkpoint path is different.
+If you already have a Conda environment for CONCH, activate it and run
+`pip install -e .` from this repository.
 
 ## Reproducible Environment Files
 
