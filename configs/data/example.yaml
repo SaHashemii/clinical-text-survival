@@ -1,0 +1,22 @@
+# Copy to configs/data/local.yaml and replace paths with local values.
+
+data:
+  root: /path/to/data
+  labels:
+    default: labels.csv
+    with_urolife: labels_with_urolife.csv
+    without_urolife: labels_without_urolife.csv
+  label_name: default
+  clinical_tabular: clinical.csv
+  clinical_embeddings:
+    default: clinical_embeddings/
+    conch5: clinical_embeddings_conch5/
+  clinical_embedding_name: default
+
+cv:
+  n_splits: 5
+  seed: 42
+
+outputs:
+  root: outputs/
+
